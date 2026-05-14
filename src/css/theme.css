@@ -1,0 +1,29 @@
+@theme {
+	--color-*: initial;
+	--color-white: #fff;
+	--color-black: #000;
+	--color-red: #ff0000;
+	--color-green: #00ff00;
+	--color-blue: #0000ff;
+
+	--color-pink: light-dark(#c5796d, #61332b);
+	--color-pink-light: light-dark(#ffb7a4, #ffb7a4);
+}
+
+:root {
+	color-scheme: light dark;
+	--background: var(--color-pink);
+	--foreground: var(--color-white);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--color-pink);
+		--foreground: var(--color-white);
+	}
+}
+
+body {
+	background: var(--background);
+	color: var(--foreground);
+}

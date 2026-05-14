@@ -1,0 +1,92 @@
+@theme {
+	--text-*: initial;
+
+	--font-weight-*: initial;
+	--font-weight-400: 400;
+	--font-weight-500: 500;
+	--font-weight-600: 600;
+	--font-weight-700: 700;
+	--font-weight-800: 800;
+	--font-weight-900: 900;
+
+	--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+	--font-serif: 'Begum', 'Georgia', serif, system-ui;
+}
+
+@font-face {
+	font-family: Georgia;
+	font-size: 16px;
+	line-height: 1.6;
+	letter-spacing: 0.75px;
+	word-spacing: -0.6px;
+}
+
+@font-face {
+	font-family: Begum;
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/Begum-Light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: Begum;
+	font-style: normal;
+	font-weight: 500;
+	src: url('/fonts/Begum-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: Begum;
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/Begum-Semibold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: Begum;
+	font-style: normal;
+	font-weight: 700;
+	src: url('/fonts/Begum-Bold.woff2') format('woff2');
+}
+
+@utility text-32 {
+	font-size: calc(var(--spacing-scale) * 32);
+	line-height: 140%;
+	letter-spacing: -3%;
+}
+
+@utility text-24 {
+	font-size: calc(var(--spacing-scale) * 24);
+	line-height: 140%;
+	letter-spacing: 0;
+}
+
+@utility text-20 {
+	font-size: calc(var(--spacing-scale) * 20);
+	line-height: 140%;
+	letter-spacing: 0;
+}
+
+@utility text-18 {
+	font-size: calc(var(--spacing-scale) * 18);
+	line-height: 140%;
+	letter-spacing: 0;
+}
+
+@utility text-16 {
+	font-size: calc(var(--spacing-scale) * 16);
+	line-height: 140%;
+	letter-spacing: 0;
+}
+
+@utility text-14 {
+	font-size: calc(var(--spacing-scale) * 14);
+	line-height: 140%;
+	letter-spacing: 0;
+}
+
+@utility text-12 {
+	font-size: calc(var(--spacing-scale) * 12);
+	line-height: 140%;
+	letter-spacing: 0;
+}
