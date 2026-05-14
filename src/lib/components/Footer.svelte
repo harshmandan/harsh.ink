@@ -3,7 +3,7 @@
 	import Sveltekit from '$lib/icons/Sveltekit.svelte';
 </script>
 
-<footer class="mt-auto flex items-center justify-between px-16 py-8 pt-64 font-serif xl:pt-128">
+<footer class="mt-auto flex items-center justify-between px-16 pt-64 pb-24 font-serif xl:pt-128">
 	<div class="text-14 font-500 flex items-center gap-16">
 		<a href="https://en.wikipedia.org/wiki/Jaipur" target="_blank" class="flex items-center gap-8">
 			<span>Jaipur, IN</span>
