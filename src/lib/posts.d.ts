@@ -8,4 +8,7 @@ export type Frontmatter = {
 	coverHeight?: number;
 	excerpt?: string;
 	draft?: boolean;
+	link?: string;
+	npm_url?: string;
+	source_url?: string;
 };
