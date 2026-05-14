@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Footer from '$lib/components/Footer.svelte';
+
 	const photos = [
 		'https://live.staticflickr.com/65535/54562196474_66b38d4e29_k.jpg',
 		'https://live.staticflickr.com/65535/54561135182_20ce80f799_k.jpg',
@@ -109,3 +111,5 @@
 		</button>
 	</div>
 </div>
+
+<Footer />
