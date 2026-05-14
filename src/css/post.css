@@ -1,0 +1,364 @@
+/* =========================================================
+   Blog post typography
+   Targets the raw HTML produced by mdsvex inside .post-content
+   ========================================================= */
+
+.post-content {
+	font-family: var(--font-serif);
+	font-size: calc(var(--spacing-scale) * 17);
+	line-height: 1.7;
+	color: rgba(255, 255, 255, 0.92);
+}
+
+/* Default block spacing — every direct child gets a bottom margin */
+.post-content > * {
+	margin-top: 0;
+	margin-bottom: calc(var(--spacing-scale) * 20);
+}
+
+.post-content > *:last-child {
+	margin-bottom: 0;
+}
+
+/* Headings */
+.post-content h2 {
+	font-size: calc(var(--spacing-scale) * 24);
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
+	margin-top: calc(var(--spacing-scale) * 48);
+	margin-bottom: calc(var(--spacing-scale) * 8);
+}
+
+.post-content h3 {
+	font-size: calc(var(--spacing-scale) * 20);
+	font-weight: 600;
+	line-height: 1.35;
+	margin-top: calc(var(--spacing-scale) * 32);
+	margin-bottom: calc(var(--spacing-scale) * 6);
+}
+
+.post-content h4 {
+	font-size: calc(var(--spacing-scale) * 18);
+	font-weight: 600;
+	line-height: 1.4;
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 4);
+}
+
+.post-content > h2:first-child,
+.post-content > h3:first-child,
+.post-content > h4:first-child {
+	margin-top: 0;
+}
+
+/* Inline emphasis */
+.post-content strong {
+	font-weight: 600;
+}
+
+.post-content em {
+	font-style: italic;
+}
+
+/* Links */
+.post-content a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: var(--color-pink-light);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	transition: opacity 150ms ease;
+}
+
+.post-content a:hover {
+	opacity: 0.75;
+}
+
+/* Lists */
+.post-content ul,
+.post-content ol {
+	padding-left: calc(var(--spacing-scale) * 24);
+}
+
+.post-content ul {
+	list-style-type: disc;
+}
+
+.post-content ol {
+	list-style-type: decimal;
+}
+
+.post-content li {
+	margin-bottom: calc(var(--spacing-scale) * 8);
+}
+
+.post-content li::marker {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.post-content li > p {
+	margin-bottom: calc(var(--spacing-scale) * 8);
+}
+
+.post-content li :last-child {
+	margin-bottom: 0;
+}
+
+/* Inline code — wrap long tokens (paths, URLs, identifiers) eagerly mid-token
+   instead of pushing the whole code element to a new line first. */
+.post-content :not(pre) > code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.88em;
+	background: rgba(0, 0, 0, 0.28);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: calc(var(--spacing-scale) * 4);
+	padding: calc(var(--spacing-scale) * 1) calc(var(--spacing-scale) * 6);
+	color: #ffd9cc;
+	word-break: break-all;
+}
+
+/* Paragraphs containing long inline tokens — make sure the parent intrinsic
+   size doesn't get pegged to the longest token's width on narrow viewports. */
+.post-content p,
+.post-content li,
+.post-content td {
+	overflow-wrap: anywhere;
+}
+
+/* Code blocks */
+.post-content pre {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: calc(var(--spacing-scale) * 14);
+	line-height: 1.6;
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: calc(var(--spacing-scale) * 8);
+	padding: calc(var(--spacing-scale) * 16) calc(var(--spacing-scale) * 18);
+	overflow-x: auto;
+	tab-size: 2;
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+}
+
+.post-content pre code {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	white-space: pre;
+}
+
+/* Blockquote */
+.post-content blockquote {
+	border-left: 3px solid var(--color-pink-light);
+	padding-left: calc(var(--spacing-scale) * 16);
+	font-style: italic;
+	color: rgba(255, 255, 255, 0.85);
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+}
+
+.post-content blockquote > * {
+	margin-bottom: calc(var(--spacing-scale) * 8);
+}
+
+.post-content blockquote > *:last-child {
+	margin-bottom: 0;
+}
+
+/* Horizontal rule */
+.post-content hr {
+	border: 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.18);
+	margin-top: calc(var(--spacing-scale) * 40);
+	margin-bottom: calc(var(--spacing-scale) * 40);
+}
+
+/* Images */
+.post-content img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-radius: calc(var(--spacing-scale) * 8);
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+}
+
+/* Tables — wrap horizontally on narrow screens */
+.post-content table {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+	border-collapse: collapse;
+	font-size: calc(var(--spacing-scale) * 15);
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+}
+
+.post-content thead {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.post-content th,
+.post-content td {
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	padding: calc(var(--spacing-scale) * 8) calc(var(--spacing-scale) * 12);
+	text-align: left;
+	vertical-align: top;
+}
+
+.post-content th {
+	font-weight: 600;
+}
+
+/* =========================================================
+   Post header (title / excerpt / meta)
+   ========================================================= */
+
+.post-header {
+	margin-bottom: calc(var(--spacing-scale) * 40);
+	padding-bottom: calc(var(--spacing-scale) * 24);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.post-header__title {
+	font-family: var(--font-serif);
+	font-size: calc(var(--spacing-scale) * 36);
+	font-weight: 600;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+	margin: 0 0 calc(var(--spacing-scale) * 12);
+}
+
+.post-header__excerpt {
+	font-style: italic;
+	font-size: calc(var(--spacing-scale) * 18);
+	line-height: 1.5;
+	opacity: 0.78;
+	margin: 0 0 calc(var(--spacing-scale) * 20);
+}
+
+.post-header__meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: calc(var(--spacing-scale) * 12);
+	font-size: calc(var(--spacing-scale) * 13);
+	opacity: 0.6;
+}
+
+.post-header__meta time {
+	letter-spacing: 0.02em;
+}
+
+.post-header__sep {
+	opacity: 0.5;
+}
+
+.post-header__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--spacing-scale) * 8);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.post-header__tags li {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: calc(var(--spacing-scale) * 999);
+	padding: calc(var(--spacing-scale) * 2) calc(var(--spacing-scale) * 10);
+}
+
+/* =========================================================
+   Post end (thanks for reading + tags + back-to-top)
+   ========================================================= */
+
+.post-end {
+	margin-top: calc(var(--spacing-scale) * 64);
+	padding-top: calc(var(--spacing-scale) * 32);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: calc(var(--spacing-scale) * 12);
+	font-family: var(--font-serif);
+}
+
+.post-end__rule {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: calc(var(--spacing-scale) * 12);
+	margin-bottom: calc(var(--spacing-scale) * 16);
+	opacity: 0.7;
+}
+
+.post-end__rule::before,
+.post-end__rule::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.18);
+}
+
+.post-end__thanks {
+	font-size: calc(var(--spacing-scale) * 18);
+	font-style: italic;
+	opacity: 0.9;
+	margin: 0;
+}
+
+.post-end__date {
+	font-size: calc(var(--spacing-scale) * 14);
+	opacity: 0.6;
+	margin: 0;
+	letter-spacing: 0.02em;
+}
+
+.post-end__tags {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: calc(var(--spacing-scale) * 8);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: calc(var(--spacing-scale) * 13);
+}
+
+.post-end__tags li {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: calc(var(--spacing-scale) * 999);
+	padding: calc(var(--spacing-scale) * 2) calc(var(--spacing-scale) * 10);
+}
+
+.post-end__top {
+	margin-top: calc(var(--spacing-scale) * 12);
+	display: inline-flex;
+	align-items: center;
+	gap: calc(var(--spacing-scale) * 8);
+	background: transparent;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: calc(var(--spacing-scale) * 999);
+	color: inherit;
+	font-family: inherit;
+	font-size: calc(var(--spacing-scale) * 14);
+	padding: calc(var(--spacing-scale) * 8) calc(var(--spacing-scale) * 16);
+	cursor: pointer;
+	transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.post-end__top:hover {
+	background: rgba(255, 255, 255, 0.06);
+	border-color: var(--color-pink-light);
+}
+
+.post-end__top:active {
+	transform: translateY(1px);
+}

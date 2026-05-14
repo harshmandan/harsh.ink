@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+/* Tailwind */
+@import 'tailwindcss';
+
+/* Custom */
+@import './root.css';
+@import './theme.css';
+@import './spacing.css';
+@import './typography.css';
+@import './custom.css';
+@import './radius.css';
+@import './post.css';
+
+/* Plugins */
+/* @plugin '@tailwindcss/forms'; */
