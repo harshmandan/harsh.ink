@@ -1,254 +1,104 @@
 ---
 title: 'Linear scale in Tailwind CSS'
 date: '15-12-2024'
-updated: '15-12-2024'
+updated: '17-11-2026'
 categories:
   - 'css'
-excerpt: Figuring out a better tailwind scaling & naming system
+excerpt: A Tailwind config where the number in a class is the pixel value, so p-18 means 18px and the output is still rem.
+source_url: https://github.com/harshmandan/tailwind-linear-scale
 ---
 
-I love tailwindCSS! The combination of tailwind & svelte is just 🤌. But as I worked with it more I realized the default naming system had a big issue that I loathed. Pretty sure everyone who has worked with tailwind must have gone through this. Let me explain with an example:
+I love Tailwind CSS. Tailwind and Svelte together are just 🤌. But the more I used it, the more one thing bugged me: the numbers in the class names don't mean anything you can see in a design.
 
-You have a figma file that you want to translate into code.
+## The problem
 
-Here, the button has vertical padding of 10px and horizontal padding of 16px. What would that look like in tailwind's _default_ classes: `py-2.5 px-4`. If you have even a little bit of experience with tailwindCSS, then you understand `2.5` comes from `10/4=2.5` & `4` comes from `16/4`. So what, you say! It's a pretty basic division and you're right but bear with me. Let's make the example more in favour of my point: Say, the vertical padding is now `18px`, instead of `16px`: `14/4 = 4.5`. You type in px-4.5 but oh no! By default there's no such class. But no worries, we can use arbitrary numbers with tailwind: `px-[18px]`. If you came to the same answer, well it's partially incorrect. Yes, it will be `18px` but only at base scaling/font-size. When you use any default tailwind classes the spacing is in `rem` units. So the correct answer would be `px-[1.125rem]` - It comes from `0.0625 * 18`. Now, try doing this math again & again. It gets pretty tiring. Not to mention when you're double checking every spacing with the design - that can't be as quick.
+Say a button in Figma has 10px of vertical padding and 16px of horizontal padding. In Tailwind that's `py-2.5 px-4`, because the spacing scale counts in steps of 4px: `10 / 4 = 2.5` and `16 / 4 = 4`. Easy enough.
 
-This problem continues with other classes as well (at base scale):
+Now make the horizontal padding 18px. `18 / 4 = 4.5`, so you type `px-4.5`, and nothing happens. Tailwind's default scale doesn't have it. The obvious fix is an arbitrary value, `px-[18px]`, and that's only half right. It's 18px, but it's fixed in pixels. Every built-in spacing class is in `rem`, so it grows when someone turns up their browser's font size, and `px-[18px]` doesn't. To match the rest of the scale you need `px-[1.125rem]`, which is `18 / 16`.
 
-- Border radius: `rounded-md` = `border-radius: 8px`
-- Font size: `font-xl` = `font-size: 18px; line-height: ??`
-- Font weight: `font-medium` = `font-weight: 500` (This bothers me the least as the weights do have standard names associated with them - but I prefer an explicit number)
-- Breakpoints & Container queries: `md:, lg:, @md:` = `640:, 768:, @640:`
+Doing that once is fine. Doing it for every spacing value in a design, and again when you check the build against the design, gets old fast.
 
-## The spacing scale conspiracy
+| Design says | You work out | You type       |
+| ----------- | ------------ | -------------- |
+| 10px        | 10 / 4 = 2.5 | `p-2.5`        |
+| 14px        | 14 / 4 = 3.5 | `p-3.5`        |
+| 18px        | 18 / 4 = 4.5 | `p-[1.125rem]` |
+| 22px        | 22 / 4 = 5.5 | `p-[1.375rem]` |
 
-Here's the kicker - Tailwind's `p-4` means `padding: 1rem`. And if you're running on the default font size (which most of us are), that's 16 pixels.
+The other scales have the same problem in a different way. They use names instead of numbers, so you have to remember what each name means:
 
-### Quick math lesson
+- Border radius: `rounded-md` is 6px. Medium compared to what?
+- Font size: `text-xl` is 20px. That's not very extra large.
+- Font weight: `font-medium` is 500. This one bothers me least, since weights have standard names, but I'd still rather see the number.
+- Breakpoints and container queries: `md:` is 768px, `lg:` is 1024px, and `@md:` is 448px.
 
-Your browser's default font size is usually 16px. So `1rem = 16px`. Which means:
+## Numbers that mean pixels
 
-```css
-/* Tailwind's spacing scale */
-.p-1 {
-	padding: 0.25rem;
-} /* 4px */
-.p-2 {
-	padding: 0.5rem;
-} /* 8px */
-.p-3 {
-	padding: 0.75rem;
-} /* 12px */
-.p-4 {
-	padding: 1rem;
-} /* 16px */
-```
-
-See the pattern? Every increment adds 4px. So to get 10px padding, you need... `p-2.5`?
-
-_cries in Figma_
-
-## The Figma translation nightmare
-
-If you've ever stared at a Figma design that says "padding: 10px" and then spent 30 seconds figuring out that means `p-2.5` in Tailwind-land, you know my pain.
-
-```
-Designer: "Just add 20px margin"
-Me: *furiously calculating* "So that's... 20 divided by 4... equals m-5"
-```
-
-Why are we doing division in our heads while coding?
-
-### The translation table of doom
-
-| Figma says | You calculate | You write |
-| ---------- | ------------- | --------- |
-| 10px       | 10 ÷ 4 = 2.5  | `p-2.5`   |
-| 20px       | 20 ÷ 4 = 5    | `p-5`     |
-| 24px       | 24 ÷ 4 = 6    | `p-6`     |
-| 30px       | 30 ÷ 4 = 7.5  | `p-7.5`   |
-
-## My stupidly simple solution
-
-I got tired of this, so I made a config that just... makes sense. Now `p-4` means 4 pixels. Revolutionary, I know.
-
-But here's the trick - it's still using rem units under the hood! The magic formula:
-
-```css
-:root {
-	--spacing-scale: 0.0625em; /* Magic number! */
-}
-```
-
-### Why 0.0625?
-
-Because math:
-
-```
-1px = 1/16 rem = 0.0625rem (when base font is 16px)
-```
-
-So `p-10` becomes:
-
-```css
-.p-10 {
-	padding: calc(10 * var(--spacing-scale));
-	/* 10 * 0.0625rem = 0.625rem = 10px */
-}
-```
-
-No mental math required!
-
-## What I changed
-
-### Spacing (margin, padding, gap, etc.)
+So I made a config where the number in the class is the pixel value. `p-10` is 10px, `p-18` is 18px, `text-20` is 20px, and `rounded-6` is 6px. Breakpoints are named by their width.
 
 ```html
-<!-- Before: Mental gymnastics -->
-<div class="m-6 gap-2 p-4">
-	<!-- 16px, 24px, 8px -->
+<!-- Default Tailwind -->
+<div class="m-5 gap-2 rounded-md p-4 text-xl md:flex">...</div>
 
-	<!-- After: What you see is what you get -->
-	<div class="m-24 gap-8 p-16"><!-- 16px, 24px, 8px --></div>
-</div>
+<!-- Linear scale -->
+<div class="rounded-6 text-20 768:flex m-20 gap-8 p-16">...</div>
 ```
 
-Now when Figma says 20px, you use `p-20`. Mind. Blown. 🤯
+The sizes are still `rem`, not `px`. Each number is divided by 16, so at the default browser font size 1 unit is 1px, and if someone sets a bigger font size, everything scales with it the same way default Tailwind does. You think in the pixels from the design, and the CSS stays in `rem`.
 
-### Typography
+## The config
 
-```html
-<!-- Before: Abstract sizes -->
-<h1 class="text-base">Base text</h1>
-<!-- 16px -->
-<h2 class="text-lg">Large text</h2>
-<!-- 18px -->
-<h3 class="text-xl">Extra large</h3>
-<!-- 20px -->
-<h4 class="text-2xl">2x large?</h4>
-<!-- 24px -->
+For Tailwind v3 it's a `tailwind.config.ts` that replaces the theme's scales with generated ones:
 
-<!-- After: Actual pixel values -->
-<h1 class="text-16">Base text</h1>
-<!-- 16px -->
-<h2 class="text-18">Large text</h2>
-<!-- 18px -->
-<h3 class="text-20">Extra large</h3>
-<!-- 20px -->
-<h4 class="text-24">2x large?</h4>
-<!-- 24px -->
-```
+```ts
+const BASE_FONT = 16;
+const rem = (px: number) => `${px / BASE_FONT}rem`;
+const linearScale = (values: number[]) =>
+	Object.fromEntries(values.map((value) => [value, rem(value)]));
 
-No more guessing if `text-2xl` is 24px or 28px or whatever.
-
-### Border radius
-
-```html
-<!-- Before: What's medium? -->
-<div class="rounded-sm">Small?</div>
-<!-- 2px -->
-<div class="rounded-md">Medium?</div>
-<!-- 6px -->
-<div class="rounded-lg">Large?</div>
-<!-- 8px -->
-
-<!-- After: Just pixels -->
-<div class="rounded-2">Small</div>
-<!-- 2px -->
-<div class="rounded-6">Medium</div>
-<!-- 6px -->
-<div class="rounded-8">Large</div>
-<!-- 8px -->
-```
-
-### Breakpoints
-
-Even the breakpoints got the treatment:
-
-```html
-<!-- Before: Abstract breakpoints -->
-<div class="sm:hidden md:block lg:flex">
-	<!-- After: Pixel values -->
-	<div class="640:hidden 768:block 1024:flex"></div>
-</div>
-```
-
-Because why memorize abstract names when the pixel values are right there?
-
-## The config magic
-
-Here's a peek at what the config looks like:
-
-```js
-// tailwind.config.js
-module.exports = {
+export default {
 	theme: {
-		extend: {
-			spacing: {
-				1: 'calc(1 * var(--spacing-scale))',
-				2: 'calc(2 * var(--spacing-scale))',
-				3: 'calc(3 * var(--spacing-scale))',
-				4: 'calc(4 * var(--spacing-scale))'
-				// ... and so on
-			},
-			fontSize: {
-				12: ['calc(12 * var(--spacing-scale))', { lineHeight: '1.5' }],
-				14: ['calc(14 * var(--spacing-scale))', { lineHeight: '1.5' }],
-				16: ['calc(16 * var(--spacing-scale))', { lineHeight: '1.5' }]
-				// ... more sizes
-			}
-		}
+		spacing: linearScale([...Array(101).keys(), 128, 192, 256 /* ... up to 1216 */]),
+		borderRadius: { ...linearScale([0, 2, 4, 6, 8, 12, 16, 24]), full: '9999px' },
+		screens: { 640: '640px', 768: '768px', 1024: '1024px', 1280: '1280px', 1536: '1536px' },
+		fontSize: {
+			12: [rem(12), rem(16)],
+			14: [rem(14), rem(20)],
+			16: [rem(16), rem(24)]
+			// ... up to 128
+		},
+		fontWeight: { 400: '400', 500: '500', 700: '700' /* ... 100 to 900 */ }
 	}
 };
 ```
 
-## The best part
+Spacing goes from 0 to 100 in single pixels, then a few larger steps. Font sizes keep Tailwind's default line heights, so `text-20` looks exactly like `text-xl`. `BASE_FONT` is there in case your design isn't built on 16px. Change it and the whole scale follows.
 
-It's all backwards compatible! The old classes still work if you're into that whole abstract naming thing. I just added sensible alternatives.
+One thing to know before you switch: this replaces the default scale, it doesn't add to it. `p-4` is now 4px, not 16px. On an existing project, every spacing class has to be converted, so it's easiest to start with on a new one.
 
-```html
-<!-- Both work! -->
-<div class="p-4">Old way (16px)</div>
-<div class="p-16">New way (16px)</div>
-```
+<div class="post-divider" role="separator">Update · June 2025</div>
 
-## Try it yourself
+## Update: Tailwind v4
 
-Grab the config from [the repo](https://github.com/harshmandan/tailwind-linear-scale) and stop doing math in your head. Your brain cells will thank you.
-
-### Installation
-
-```bash
-npm install tailwind-linear-scale
-# or
-pnpm add tailwind-linear-scale
-```
-
-Then update your config:
-
-```js
-// tailwind.config.js
-const linearScale = require('tailwind-linear-scale');
-
-module.exports = {
-	presets: [linearScale]
-	// ... your other config
-};
-```
-
-## The accessibility note
-
-And yes, I know some purists will say "but rem units are better for accessibility!" - and they're right! That's why everything still compiles to rem. You get the best of both worlds: think in pixels, output in rems.
+Tailwind v4 came out in January 2025 and moved configuration into CSS, so the [main branch](https://github.com/harshmandan/tailwind-linear-scale) is now a set of CSS files with `@theme` blocks. The idea is the same, with one variable doing the conversion:
 
 ```css
-/* What you write */
-.p-20 {
-}
+@theme {
+	--spacing-*: initial;
+	--scale-unit: calc(1rem / 16);
 
-/* What gets generated */
-.p-20 {
-	padding: 1.25rem;
-} /* Still rem! */
+	--spacing-1: calc(var(--scale-unit) * 1);
+	--spacing-2: calc(var(--scale-unit) * 2);
+	/* ... */
+}
 ```
 
-Now if you'll excuse me, I need to go update all my projects to use this because I can't go back to the dark times of `p-2.5`.
+Breakpoints and container sizes are the exception. Tailwind writes them straight into `@media` and `@container` queries, where `var()` doesn't work, so those are plain `rem` values like `--breakpoint-768: 48rem`.
+
+v4 also lets you use any multiple of the default spacing, so `p-4.5` works now. You still have to divide by 4 to get there, though.
+
+## Try it
+
+It isn't on npm. Copy the files from the [repo](https://github.com/harshmandan/tailwind-linear-scale): the CSS files on `main` for Tailwind v4, or `tailwind.config.ts` on the `v3` branch. The README has the full tables for every scale.
+
+I can finally build from a design without a calculator open. If doing division while you code bugs you too, give it a try.
