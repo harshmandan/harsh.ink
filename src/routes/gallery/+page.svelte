@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Footer from '$lib/components/Footer.svelte';
+	import Footer from '#lib/components/Footer.svelte';
 
 	const photos = [
 		'https://live.staticflickr.com/65535/54562196474_66b38d4e29_k.jpg',
@@ -78,7 +78,7 @@
 <div class="text-16 font-500 flex flex-col gap-16">
 	<div class="text-24 font-600 pb-16">Photography</div>
 	<div class="flex flex-col gap-16">
-		<div class="font-400">
+		<div>
 			Most of the photos I upload are taken using my Olympus mirrorless. I love the M43 ecosystem as
 			the whole system is really light and portable
 		</div>
@@ -93,7 +93,7 @@
 	<div
 		class="relative right-1/2 left-1/2 -mx-[50vw] flex h-full w-screen flex-col gap-32 px-16 xl:gap-72"
 	>
-		{#each photos as photo}
+		{#each photos as photo (photo)}
 			<a href={photo} target="_blank" class="flex w-full snap-start items-center justify-center">
 				<img alt="Gallery" src={photo} class="max-h-[calc(100vh-100px)] w-full object-contain" />
 			</a>

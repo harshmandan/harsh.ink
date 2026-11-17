@@ -1,21 +1,13 @@
 <script lang="ts">
-	import Footer from '$lib/components/Footer.svelte';
-	import Github from '$lib/icons/Github.svelte';
-	import Globe from '$lib/icons/Globe.svelte';
-	import Npm from '$lib/icons/Npm.svelte';
+	import { resolve } from '$app/paths';
+	import Footer from '#lib/components/Footer.svelte';
+	import Github from '#lib/icons/Github.svelte';
+	import Globe from '#lib/icons/Globe.svelte';
+	import Npm from '#lib/icons/Npm.svelte';
+
+	import { formatPostDate, isoPostDate } from '../../lib/date';
 
 	let { data } = $props();
-
-	function shortDate(raw: string): string {
-		const [d, m, y] = raw.split('-').map(Number);
-		if (!d || !m || !y) return raw;
-		return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-GB', {
-			day: 'numeric',
-			month: 'short',
-			year: 'numeric',
-			timeZone: 'UTC'
-		});
-	}
 </script>
 
 <svelte:head>
@@ -25,17 +17,25 @@
 <div class="text-24 font-600 pb-24">Craft</div>
 
 <ul class="flex flex-col">
-	{#each data.posts as post}
-		<li class="border-white/10 not-last:border-b py-20">
+	{#each data.posts as post (post.slug)}
+		<li class="border-white/10 py-20 not-last:border-b">
 			<a
-				href="/blog/{post.slug}"
+				href={resolve('/blog/[slug]', { slug: post.slug })}
 				class="text-16 font-500 decoration-pink-light underline-offset-2 transition-all hover:underline hover:decoration-wavy"
 			>
 				{post.title}
 			</a>
 
 			<div class="mt-6 flex items-center justify-between gap-16">
-				<span class="text-13 whitespace-nowrap opacity-60">{shortDate(post.date)}</span>
+				<span class="text-13 opacity-60">
+					<time datetime={isoPostDate(post.date)}>{formatPostDate(post.date)}</time
+					>{#if post.shownUpdated}<span class="whitespace-nowrap"
+							>&nbsp;· Updated
+							<time datetime={isoPostDate(post.shownUpdated)}
+								>{formatPostDate(post.shownUpdated)}</time
+							></span
+						>{/if}{#if post.draft}<span class="text-pink-light">&nbsp;· Draft</span>{/if}
+				</span>
 				{#if post.link || post.npm_url || post.source_url}
 					<div class="flex items-center gap-12 opacity-70">
 						{#if post.link}

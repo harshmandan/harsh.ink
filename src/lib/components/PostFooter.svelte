@@ -1,20 +1,14 @@
 <script lang="ts">
-	import Star from '$lib/icons/Star.svelte';
+	import { formatPostDate } from '../date';
+	import Star from '#lib/icons/Star.svelte';
 
-	let { date, categories = [] }: { date: string; categories?: string[] } = $props();
+	let {
+		date,
+		updated,
+		categories = []
+	}: { date: string; updated?: string; categories?: string[] } = $props();
 
-	// frontmatter date is `DD-MM-YYYY` — parse and format as "12 May 2026"
-	const formatted = (() => {
-		const [d, m, y] = date.split('-').map(Number);
-		if (!d || !m || !y) return date;
-		const iso = new Date(Date.UTC(y, m - 1, d));
-		return iso.toLocaleDateString('en-GB', {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric',
-			timeZone: 'UTC'
-		});
-	})();
+	const formatted = $derived(formatPostDate(date));
 
 	function backToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -28,11 +22,13 @@
 
 	<p class="post-end__thanks">Thanks for reading.</p>
 
-	<p class="post-end__date">Published {formatted}</p>
+	<p class="post-end__date">
+		Published {formatted}{#if updated}<span>&nbsp;· Updated {formatPostDate(updated)}</span>{/if}
+	</p>
 
 	{#if categories?.length}
 		<ul class="post-end__tags">
-			{#each categories as category}
+			{#each categories as category (category)}
 				<li>#{category}</li>
 			{/each}
 		</ul>

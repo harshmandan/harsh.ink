@@ -1,14 +1,15 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import Nav from '$lib/components/Nav.svelte';
-	import Star from '$lib/icons/Star.svelte';
+	import Nav from '#lib/components/Nav.svelte';
+	import Star from '#lib/icons/Star.svelte';
 	import { slide } from 'svelte/transition';
 	import '../css/app.css';
 
 	let { children } = $props();
 </script>
 
-<div class="relative mx-auto flex min-h-screen w-full max-w-2xl flex-col px-16 font-serif">
+<div class="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col px-16 font-serif">
 	<header class="flex w-full items-center justify-between gap-64 py-50 xl:py-100">
 		{@render Logo()}
 		<Nav />
@@ -21,7 +22,7 @@
 {#snippet Logo()}
 	<div class="flex items-center">
 		<div class="flex items-center gap-8">
-			<a href="/">
+			<a href={resolve('/')}>
 				<Star
 					class="active:text-pink-light size-42 text-white transition-all ease-in hover:rotate-45 active:rotate-[60deg] active:opacity-75"
 				/>

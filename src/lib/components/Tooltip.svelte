@@ -35,7 +35,6 @@
 			const { height: elHeight, width: elWidth } = element.getBoundingClientRect();
 			const { height: tipHeight, width: tipWidth } = tooltip.getBoundingClientRect();
 			let topGap;
-			let rightGap;
 			let bottomGap;
 			let leftGap;
 			if (top) {
@@ -60,7 +59,6 @@
 			}
 			tooltip.style.top = `${topGap}px`;
 			tooltip.style.bottom = `${bottomGap}px`;
-			tooltip.style.right = `${rightGap}px`;
 			tooltip.style.left = `${leftGap}px`;
 			tip.style.setProperty('--top-gap', `${arrowTopGap - 4}px`);
 		};

@@ -14,9 +14,10 @@
 	</div>
 
 	<div class="text-16 flex items-center gap-16 pt-16">
-		{#each Object.entries(links) as [path, label]}
+		{#each Object.entries(links) as [path, label] (path)}
 			<a
 				href={path}
+				rel="external"
 				class="decoration-pink-light underline-offset-2 opacity-70 transition-all hover:underline hover:decoration-wavy hover:opacity-100"
 			>
 				{label}
@@ -24,17 +25,15 @@
 		{/each}
 	</div>
 
-	<div class="font-400 pt-16">
-		A computer science engineer with over 7 years of experience. I'm passionate about building
-		delightful and functional apps with focus on user experience, performance and interactivity. My
-		expertise is in front-end development and design.
+	<div class="pt-16">
+		Seven years in. Mostly front-end and design - Svelte, TypeScript, with the occasional Rust or
+		native-mobile detour when a problem actually needs it.
 
 		<div class="pt-16"></div>
-		In the past I've worked solo, on my own startup, within agencies and in-house at global organizations.
-		I'm now focused on contracting with small craft-focused teams and agencies.
+		I've worked solo on a startup, inside agencies, in-house at global orgs. Now mostly contracting with
+		small craft-focused teams - the kind that ship taste-driven products rather than feature checklists.
 
 		<div class="pt-16"></div>
-		I'm currently working with a small team of developers on building a world-class web application that
-		enhances user video experiences.
+		Currently with a small team building a web video app that's trying very hard to be good.
 	</div>
 </div>

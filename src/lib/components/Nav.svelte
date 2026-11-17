@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 
 	let activePath = $derived(page.url.pathname);
 
-	const links = {
-		'/': 'Index',
-		'/blog': 'Craft',
-		'/gallery': 'Photography'
-	};
+	const links = [
+		{ path: '/', label: 'Index' },
+		{ path: '/blog', label: 'Craft' },
+		{ path: '/gallery', label: 'Photography' }
+	] as const;
 
 	function isActive(path: string, current: string): boolean {
 		if (path === '/') return current === '/';
@@ -16,7 +17,7 @@
 </script>
 
 <ul class="text-16 font-500 flex flex-col gap-2 text-right font-serif">
-	{#each Object.entries(links) as [path, label]}
+	{#each links as { path, label } (path)}
 		{@const active = isActive(path, activePath)}
 		<a
 			class={[
@@ -26,7 +27,7 @@
 					'underline-offset-2': active
 				}
 			]}
-			href={path}
+			href={resolve(path)}
 		>
 			{label}
 		</a>

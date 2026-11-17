@@ -10,7 +10,7 @@
 	color: rgba(255, 255, 255, 0.92);
 }
 
-/* Default block spacing — every direct child gets a bottom margin */
+/* Default block spacing - every direct child gets a bottom margin */
 .post-content > * {
 	margin-top: 0;
 	margin-bottom: calc(var(--spacing-scale) * 20);
@@ -105,8 +105,9 @@
 	margin-bottom: 0;
 }
 
-/* Inline code — wrap long tokens (paths, URLs, identifiers) eagerly mid-token
-   instead of pushing the whole code element to a new line first. */
+/* Inline code. Long tokens (paths, URLs) only break when they can't fit on a
+   line. Avoid `word-break: break-all` / `overflow-wrap: anywhere` here: they
+   change how the browser finds word edges, so double-click selects too much. */
 .post-content :not(pre) > code {
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.88em;
@@ -115,13 +116,25 @@
 	border-radius: calc(var(--spacing-scale) * 4);
 	padding: calc(var(--spacing-scale) * 1) calc(var(--spacing-scale) * 6);
 	color: #ffd9cc;
-	word-break: break-all;
+	overflow-wrap: break-word;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 }
 
-/* Paragraphs containing long inline tokens — make sure the parent intrinsic
-   size doesn't get pegged to the longest token's width on narrow viewports. */
 .post-content p,
-.post-content li,
+.post-content li {
+	overflow-wrap: break-word;
+}
+
+/* Text inside <p>/<li> is wrapped in this span at build time (see
+   src/lib/markdown/wrap-text.ts). The parent keeps line-height 1.7 for the
+   spacing; the tighter value here only shrinks the selection highlight. */
+.post-content .text {
+	line-height: 1.3;
+}
+
+/* Table cells size to their content, so they still need `anywhere` to keep a
+   long token from stretching the column. */
 .post-content td {
 	overflow-wrap: anywhere;
 }
@@ -148,6 +161,201 @@
 	font-size: inherit;
 	color: inherit;
 	white-space: pre;
+}
+
+/* Fenced code blocks: pink header bar with the language and a copy button,
+   cream body. Colours stay the same in light and dark mode. */
+.post-content .code-block {
+	--code-header: var(--color-pink-light);
+	--code-bg: #fff3ec;
+	--code-fg: #3b1f1a;
+	--code-muted: #8b6c64;
+	--code-red: #a8321f;
+	--code-green: #46692b;
+	--code-orange: #9a4b0c;
+	--code-purple: #7a3d9a;
+	--code-teal: #1f6b6b;
+
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+	border-radius: calc(var(--spacing-scale) * 8);
+	overflow: hidden;
+	background: var(--code-bg);
+	color: var(--code-fg);
+}
+
+.post-content .code-block__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: calc(var(--spacing-scale) * 12);
+	padding: calc(var(--spacing-scale) * 3) calc(var(--spacing-scale) * 8)
+		calc(var(--spacing-scale) * 3) calc(var(--spacing-scale) * 18);
+	background: var(--code-header);
+	color: var(--code-fg);
+	/* Keeps the language label out of copied text. */
+	user-select: none;
+}
+
+.post-content .code-block__lang {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: calc(var(--spacing-scale) * 12);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.post-content .code-block__copy {
+	display: grid;
+	place-items: center;
+	width: calc(var(--spacing-scale) * 26);
+	height: calc(var(--spacing-scale) * 26);
+	border-radius: calc(var(--spacing-scale) * 6);
+	color: var(--code-fg);
+	transition: background-color 150ms;
+}
+
+.post-content .code-block__copy:hover,
+.post-content .code-block__copy:focus-visible {
+	background: rgba(59, 31, 26, 0.12);
+}
+
+.post-content .code-block__icon {
+	grid-area: 1 / 1;
+	width: calc(var(--spacing-scale) * 16);
+	height: calc(var(--spacing-scale) * 16);
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.post-content .code-block__icon--check,
+.post-content .code-block__copy[data-copied] .code-block__icon--copy {
+	visibility: hidden;
+}
+
+.post-content .code-block__copy[data-copied] .code-block__icon--check {
+	visibility: visible;
+}
+
+.post-content .code-block pre {
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: var(--code-fg);
+	padding: calc(var(--spacing-scale) * 18);
+}
+
+/* Mermaid diagrams: same cream card as code blocks, drawn in the browser. */
+.post-content .mermaid-diagram {
+	margin-top: calc(var(--spacing-scale) * 24);
+	margin-bottom: calc(var(--spacing-scale) * 24);
+	padding: calc(var(--spacing-scale) * 20);
+	border-radius: calc(var(--spacing-scale) * 8);
+	background: #fff3ec;
+	overflow-x: auto;
+	text-align: center;
+}
+
+.post-content .mermaid-diagram pre.mermaid {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: #3b1f1a;
+	font-family: inherit;
+}
+
+/* Hide the raw diagram source until mermaid has replaced it with an SVG. */
+.post-content pre.mermaid:not([data-processed]) {
+	visibility: hidden;
+}
+
+.post-content .mermaid-diagram svg {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Embedded demos, sized like a phone screen. */
+.post-content .demo-frame {
+	display: block;
+	width: 100%;
+	max-width: calc(var(--spacing-scale) * 380);
+	height: calc(var(--spacing-scale) * 680);
+	margin: calc(var(--spacing-scale) * 24) auto;
+	border: 0;
+	border-radius: calc(var(--spacing-scale) * 16);
+	background: #000;
+}
+
+/* For desktop-shaped demos: the full width of the post. */
+.post-content .demo-frame.wide {
+	max-width: none;
+	height: calc(var(--spacing-scale) * 640);
+}
+
+/* Prism tokens */
+/* Prism names some tokens `table`, which Tailwind's utility turns into display: table. */
+.post-content .code-block .token.table {
+	display: inline;
+}
+
+.post-content .code-block .token.comment,
+.post-content .code-block .token.prolog,
+.post-content .code-block .token.doctype,
+.post-content .code-block .token.cdata {
+	color: var(--code-muted);
+	font-style: italic;
+}
+
+.post-content .code-block .token.punctuation,
+.post-content .code-block .token.operator {
+	color: var(--code-muted);
+}
+
+.post-content .code-block .token.keyword,
+.post-content .code-block .token.atrule,
+.post-content .code-block .token.important,
+.post-content .code-block .token.tag,
+.post-content .code-block .token.selector,
+.post-content .code-block .token.section {
+	color: var(--code-red);
+}
+
+.post-content .code-block .token.string,
+.post-content .code-block .token.char,
+.post-content .code-block .token.attr-value,
+.post-content .code-block .token.regex,
+.post-content .code-block .token.url,
+.post-content .code-block .token.inserted {
+	color: var(--code-green);
+}
+
+.post-content .code-block .token.number,
+.post-content .code-block .token.boolean,
+.post-content .code-block .token.constant,
+.post-content .code-block .token.attr-name,
+.post-content .code-block .token.variable {
+	color: var(--code-orange);
+}
+
+.post-content .code-block .token.function,
+.post-content .code-block .token.deleted {
+	color: var(--code-purple);
+}
+
+.post-content .code-block .token.class-name,
+.post-content .code-block .token.builtin,
+.post-content .code-block .token.property,
+.post-content .code-block .token.key {
+	color: var(--code-teal);
+}
+
+.post-content .code-block .token.bold {
+	font-weight: 600;
 }
 
 /* Blockquote */
@@ -186,7 +394,64 @@
 	margin-bottom: calc(var(--spacing-scale) * 24);
 }
 
-/* Tables — wrap horizontally on narrow screens */
+/* Phone screenshots: shown at roughly phone size instead of full column width. */
+.post-content img.screenshot,
+.post-content video.screenshot {
+	display: block;
+	width: 100%;
+	max-width: calc(var(--spacing-scale) * 340);
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: calc(var(--spacing-scale) * 20);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Two phone screenshots side by side, shrinking together on narrow screens. */
+.post-content .screenshot-pair {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: calc(var(--spacing-scale) * 16);
+	max-width: calc(var(--spacing-scale) * 696);
+	margin: calc(var(--spacing-scale) * 24) auto;
+	align-items: start;
+}
+
+.post-content .screenshot-pair img.screenshot {
+	max-width: 100%;
+	margin: 0;
+}
+
+/* Screen recordings of a browser window: narrower than the column, centred. */
+.post-content img.recording {
+	width: 100%;
+	max-width: calc(var(--spacing-scale) * 560);
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Separates an update from the original post: a line with a centred label. */
+.post-content .post-divider {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--spacing-scale) * 14);
+	margin-top: calc(var(--spacing-scale) * 48);
+	margin-bottom: calc(var(--spacing-scale) * 40);
+	font-size: calc(var(--spacing-scale) * 13);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.post-content .post-divider::before,
+.post-content .post-divider::after {
+	content: '';
+	flex: 1;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Tables - wrap horizontally on narrow screens */
 .post-content table {
 	display: block;
 	width: 100%;
@@ -245,17 +510,84 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: calc(var(--spacing-scale) * 12);
-	font-size: calc(var(--spacing-scale) * 13);
-	opacity: 0.6;
+	gap: calc(var(--spacing-scale) * 10);
+	font-size: calc(var(--spacing-scale) * 15);
+	color: rgba(255, 255, 255, 0.85);
 }
 
 .post-header__meta time {
+	font-size: calc(var(--spacing-scale) * 16);
+	font-weight: 500;
 	letter-spacing: 0.02em;
 }
 
+/* The second date reads as a note on the first, so it is quieter. */
+.post-header__updated {
+	opacity: 0.7;
+}
+
+.post-header__updated time {
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: normal;
+}
+
+/* Project links: labelled pills on wide screens, icon-only on phones. */
+.post-header__links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--spacing-scale) * 8);
+	list-style: none;
+	padding: 0;
+	margin: calc(var(--spacing-scale) * 16) 0 0;
+}
+
+.post-header__links a {
+	display: inline-flex;
+	align-items: center;
+	gap: calc(var(--spacing-scale) * 8);
+	padding: calc(var(--spacing-scale) * 6) calc(var(--spacing-scale) * 14);
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	border-radius: calc(var(--spacing-scale) * 999);
+	font-size: calc(var(--spacing-scale) * 14);
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.9);
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+
+.post-header__links a:hover {
+	color: var(--color-pink-light);
+	border-color: currentColor;
+}
+
+@media (max-width: 640px) {
+	/* Tags get their own row on phones, so no dot is left hanging at a line end. */
+	.post-header__sep--tags {
+		display: none;
+	}
+
+	.post-header__tags {
+		flex-basis: 100%;
+	}
+
+	.post-header__links a {
+		padding: calc(var(--spacing-scale) * 8);
+	}
+
+	.post-header__link-label {
+		display: none;
+	}
+}
+
+/* Drawn dot: a "·" glyph at this size carries wide side bearings. */
 .post-header__sep {
-	opacity: 0.5;
+	width: calc(var(--spacing-scale) * 5);
+	height: calc(var(--spacing-scale) * 5);
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0.6;
 }
 
 .post-header__tags {
@@ -268,10 +600,12 @@
 }
 
 .post-header__tags li {
-	background: rgba(255, 255, 255, 0.08);
-	border: 1px solid rgba(255, 255, 255, 0.12);
+	background: rgba(255, 255, 255, 0.14);
+	border: 1px solid rgba(255, 255, 255, 0.22);
 	border-radius: calc(var(--spacing-scale) * 999);
-	padding: calc(var(--spacing-scale) * 2) calc(var(--spacing-scale) * 10);
+	padding: calc(var(--spacing-scale) * 3) calc(var(--spacing-scale) * 12);
+	color: var(--color-white);
+	font-weight: 500;
 }
 
 /* =========================================================
@@ -351,7 +685,10 @@
 	font-size: calc(var(--spacing-scale) * 14);
 	padding: calc(var(--spacing-scale) * 8) calc(var(--spacing-scale) * 16);
 	cursor: pointer;
-	transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+	transition:
+		background-color 150ms ease,
+		border-color 150ms ease,
+		transform 150ms ease;
 }
 
 .post-end__top:hover {
@@ -361,4 +698,11 @@
 
 .post-end__top:active {
 	transform: translateY(1px);
+}
+
+.post-content img.app-icon {
+	display: block;
+	width: calc(var(--spacing-scale) * 160);
+	height: auto;
+	margin: calc(var(--spacing-scale) * 24) auto;
 }

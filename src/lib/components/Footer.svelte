@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Star from '$lib/icons/Star.svelte';
-	import Sveltekit from '$lib/icons/Sveltekit.svelte';
+	import Star from '#lib/icons/Star.svelte';
+	import Sveltekit from '#lib/icons/Sveltekit.svelte';
 </script>
 
 <footer class="mt-auto flex items-center justify-between px-16 pt-64 pb-24 font-serif xl:pt-128">

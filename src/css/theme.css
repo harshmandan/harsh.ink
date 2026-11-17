@@ -26,4 +26,6 @@
 body {
 	background: var(--background);
 	color: var(--foreground);
+	/* Begum has no Regular cut: 400 maps to Light, which reads too thin. */
+	font-weight: 500;
 }

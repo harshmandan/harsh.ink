@@ -1,13 +1,6 @@
 <script lang="ts">
-	import Footer from '$lib/components/Footer.svelte';
-	import Info from '$lib/components/Info.svelte';
-
-	const links = {
-		'https://github.com/harshmandan': 'GitHub',
-		'https://linkedin.com/in/harshmandan': 'LinkedIn',
-		'https://x.com/mandan_harsh': 'X',
-		'mailto:harshsinghmandan@gmail.com': 'Email'
-	};
+	import Footer from '#lib/components/Footer.svelte';
+	import Info from '#lib/components/Info.svelte';
 </script>
 
 <svelte:head>
