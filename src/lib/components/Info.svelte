@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	const links = {
 		'https://github.com/harshmandan': 'GitHub',
 		'https://linkedin.com/in/harshmandan': 'LinkedIn',
@@ -26,14 +28,24 @@
 	</div>
 
 	<div class="pt-16">
-		Seven years in. Mostly front-end and design - Svelte, TypeScript, with the occasional Rust or
-		native-mobile detour when a problem actually needs it.
+		Seven years in. Rust and SvelteKit are my favourites. The open-source apps, mobile apps and
+		libraries I've built are in
+		<a
+			href={resolve('/blog')}
+			class="decoration-pink-light underline underline-offset-2 hover:decoration-wavy">Craft</a
+		>.
 
 		<div class="pt-16"></div>
-		I've worked solo on a startup, inside agencies, in-house at global orgs. Now mostly contracting with
-		small craft-focused teams - the kind that ship taste-driven products rather than feature checklists.
+		I've built a startup on my own, worked at agencies, and been in-house at big companies.
 
 		<div class="pt-16"></div>
-		Currently with a small team building a web video app that's trying very hard to be good.
+		Right now I'm working with a small team building world-class video technology for the web.
+
+		<div class="pt-16"></div>
+		Outside work, I 3D print things, take
+		<a
+			href={resolve('/gallery')}
+			class="decoration-pink-light underline underline-offset-2 hover:decoration-wavy">photos</a
+		>, and love hanging out with my toddler ❤️.
 	</div>
 </div>
