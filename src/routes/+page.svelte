@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Footer from '#lib/components/Footer.svelte';
 	import Info from '#lib/components/Info.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>Harsh Mandan</title>
-</svelte:head>
+<Seo title="Harsh Mandan" />
 
 <Info />
 <Footer />

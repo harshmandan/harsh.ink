@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import Footer from '#lib/components/Footer.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 	import Github from '#lib/icons/Github.svelte';
 	import Globe from '#lib/icons/Globe.svelte';
 	import Npm from '#lib/icons/Npm.svelte';
@@ -11,9 +12,10 @@
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Harsh ✸ Craft</title>
-</svelte:head>
+<Seo
+	title="Harsh ✸ Craft"
+	description="Open-source apps, mobile apps and libraries I've built, and posts about how they work."
+/>
 
 <div class="flex items-center justify-between pb-24">
 	<div class="text-24 font-600">Craft</div>

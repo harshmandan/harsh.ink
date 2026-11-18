@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Footer from '#lib/components/Footer.svelte';
 	import PostFooter from '#lib/components/PostFooter.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 	import { formatPostDate, isoPostDate, shownUpdate } from '../../../lib/date';
 	import Github from '#lib/icons/Github.svelte';
 	import Globe from '#lib/icons/Globe.svelte';
@@ -9,9 +10,19 @@
 
 	let { data } = $props();
 
-	const { title, excerpt, date, updated, categories, link, npm_url, source_url } = $derived(
-		data.meta
-	);
+	const {
+		title,
+		excerpt,
+		coverImage,
+		coverWidth,
+		coverHeight,
+		date,
+		updated,
+		categories,
+		link,
+		npm_url,
+		source_url
+	} = $derived(data.meta);
 	const shownUpdated = $derived(shownUpdate(date, updated));
 	const links = $derived(
 		[
@@ -111,15 +122,14 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-	<meta data-key="description" name="description" content={excerpt} />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={title} />
-	<meta name="twitter:title" content={title} />
-	<meta property="og:description" content={excerpt} />
-	<meta name="twitter:description" content={excerpt} />
-</svelte:head>
+<Seo
+	{title}
+	description={excerpt}
+	image={coverImage ?? data.card}
+	imageWidth={coverImage ? coverWidth : undefined}
+	imageHeight={coverImage ? coverHeight : undefined}
+	type="article"
+/>
 
 <article class="pb-32">
 	<header class="post-header">

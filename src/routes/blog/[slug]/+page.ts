@@ -5,6 +5,13 @@ import type { SvelteComponent } from 'svelte';
 // Import all markdown files statically
 const posts = import.meta.glob('../../../posts/*.md', { eager: true });
 
+// Share cards made by `bun run og`. A post without one falls back to the default card.
+const cards = import.meta.glob<string>('../../../lib/og/*.png', {
+	eager: true,
+	query: '?url',
+	import: 'default'
+});
+
 export const load = async ({ params }) => {
 	try {
 		const post = Object.entries(posts).find(([path]) => {
@@ -21,7 +28,8 @@ export const load = async ({ params }) => {
 
 		return {
 			PostContent: typedContent.default,
-			meta: { ...typedContent.metadata, slug: params.slug }
+			meta: { ...typedContent.metadata, slug: params.slug },
+			card: cards[`../../../lib/og/${params.slug}.png`]
 		};
 	} catch (err) {
 		console.error(err);

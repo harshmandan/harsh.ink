@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Footer from '#lib/components/Footer.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 
 	const photos = [
 		'https://live.staticflickr.com/65535/54562196474_66b38d4e29_k.jpg',
@@ -71,9 +72,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Harsh ✸ Photography</title>
-</svelte:head>
+<Seo title="Harsh ✸ Photography" description="Photos by Harsh Mandan." />
 
 <div class="text-16 font-500 flex flex-col gap-16">
 	<div class="text-24 font-600 pb-16">Photography</div>
