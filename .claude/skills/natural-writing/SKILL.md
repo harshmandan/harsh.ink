@@ -81,6 +81,7 @@ Posts on this site had wrong option names, wrong timings, missing exports, packa
 
 - Keep real asides: the Delhi heat, the dirty laptop screen, "lol", 🤌, admitted mistakes. Rewrite what reads generated, not what reads like the user.
 - Remove remarks that generalise about a nationality or group, and say so in your summary so the user can put it back.
+- When the user asks for a change to one line, change that line only. Don't quietly reword other lines, for example to avoid a repeated word. If you spot a problem elsewhere, point it out and ask.
 
 # Writing patterns
 
