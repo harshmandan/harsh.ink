@@ -9,6 +9,10 @@
 	let { children } = $props();
 </script>
 
+<svelte:head>
+	<link rel="alternate" type="application/rss+xml" title="Harsh Mandan" href="/rss.xml" />
+</svelte:head>
+
 <div class="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col px-16 font-serif">
 	<header class="flex w-full items-center justify-between gap-64 py-50 xl:py-100">
 		{@render Logo()}

@@ -22,7 +22,7 @@ export default defineConfig({
 			],
 			adapter: adapter(),
 			prerender: {
-				entries: ['*']
+				entries: ['*', '/rss.xml']
 			}
 		})
 	]

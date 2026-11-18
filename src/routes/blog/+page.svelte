@@ -4,6 +4,7 @@
 	import Github from '#lib/icons/Github.svelte';
 	import Globe from '#lib/icons/Globe.svelte';
 	import Npm from '#lib/icons/Npm.svelte';
+	import Rss from '#lib/icons/Rss.svelte';
 
 	import { formatPostDate, isoPostDate } from '../../lib/date';
 
@@ -14,7 +15,17 @@
 	<title>Harsh ✸ Craft</title>
 </svelte:head>
 
-<div class="text-24 font-600 pb-24">Craft</div>
+<div class="flex items-center justify-between pb-24">
+	<div class="text-24 font-600">Craft</div>
+	<a
+		href={resolve('/rss.xml')}
+		class="text-14 hover:text-pink-light flex items-center gap-6 opacity-70 transition-colors hover:opacity-100"
+		aria-label="RSS feed"
+	>
+		<Rss class="size-16" />
+		<span>RSS</span>
+	</a>
+</div>
 
 <ul class="flex flex-col">
 	{#each data.posts as post (post.slug)}
