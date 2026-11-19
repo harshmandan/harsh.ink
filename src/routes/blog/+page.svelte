@@ -5,11 +5,26 @@
 	import Github from '#lib/icons/Github.svelte';
 	import Globe from '#lib/icons/Globe.svelte';
 	import Npm from '#lib/icons/Npm.svelte';
+	import Docs from '#lib/icons/Docs.svelte';
+	import Crate from '#lib/icons/Crate.svelte';
 	import Rss from '#lib/icons/Rss.svelte';
+	import type { Frontmatter } from '../../lib/posts';
 
 	import { formatPostDate, isoPostDate } from '../../lib/date';
 
 	let { data } = $props();
+
+	function postLinks(post: Frontmatter) {
+		return [
+			post.link && { href: post.link, label: 'Website', icon: Globe },
+			post.docs_url && { href: post.docs_url, label: 'Documentation', icon: Docs },
+			post.npm_url && { href: post.npm_url, label: 'npm package', icon: Npm },
+			post.crates_url && { href: post.crates_url, label: 'crates.io crate', icon: Crate },
+			post.source_url && { href: post.source_url, label: 'Source repository', icon: Github }
+		].filter((l) => !!l);
+	}
+
+	const posts = $derived(data.posts.map((post) => ({ post, links: postLinks(post) })));
 </script>
 
 <Seo
@@ -30,7 +45,7 @@
 </div>
 
 <ul class="flex flex-col">
-	{#each data.posts as post (post.slug)}
+	{#each posts as { post, links } (post.slug)}
 		<li class="border-white/10 py-20 not-last:border-b">
 			<a
 				href={resolve('/blog/[slug]', { slug: post.slug })}
@@ -49,41 +64,19 @@
 							></span
 						>{/if}{#if post.draft}<span class="text-pink-light">&nbsp;· Draft</span>{/if}
 				</span>
-				{#if post.link || post.npm_url || post.source_url}
+				{#if links.length}
 					<div class="flex items-center gap-12 opacity-70">
-						{#if post.link}
+						{#each links as l (l.href)}
 							<a
-								href={post.link}
+								href={l.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								aria-label="Website"
+								aria-label={l.label}
 								class="hover:text-pink-light transition-colors hover:opacity-100"
 							>
-								<Globe class="size-20" />
+								<l.icon class="size-20" />
 							</a>
-						{/if}
-						{#if post.npm_url}
-							<a
-								href={post.npm_url}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label="npm package"
-								class="hover:text-pink-light transition-colors hover:opacity-100"
-							>
-								<Npm class="size-20" />
-							</a>
-						{/if}
-						{#if post.source_url}
-							<a
-								href={post.source_url}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label="Source repository"
-								class="hover:text-pink-light transition-colors hover:opacity-100"
-							>
-								<Github class="size-20" />
-							</a>
-						{/if}
+						{/each}
 					</div>
 				{/if}
 			</div>

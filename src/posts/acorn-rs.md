@@ -6,7 +6,8 @@ categories:
   - 'rust'
   - 'open-source'
 excerpt: A Rust port of the acorn JavaScript parser and acorn-typescript that gives the same syntax errors, with the same message at the same position. Built for svelte-check-native, and all 24,364 tests pass.
-link: https://docs.rs/acorn-rs/latest/acorn_rs/
+docs_url: https://docs.rs/acorn-rs/latest/acorn_rs/
+crates_url: https://crates.io/crates/acorn-rs
 source_url: https://github.com/harshmandan/acorn-rs
 ---
 

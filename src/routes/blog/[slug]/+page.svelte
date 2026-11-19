@@ -6,6 +6,8 @@
 	import Github from '#lib/icons/Github.svelte';
 	import Globe from '#lib/icons/Globe.svelte';
 	import Npm from '#lib/icons/Npm.svelte';
+	import Docs from '#lib/icons/Docs.svelte';
+	import Crate from '#lib/icons/Crate.svelte';
 	import { tick } from 'svelte';
 
 	let { data } = $props();
@@ -20,14 +22,18 @@
 		updated,
 		categories,
 		link,
+		docs_url,
 		npm_url,
+		crates_url,
 		source_url
 	} = $derived(data.meta);
 	const shownUpdated = $derived(shownUpdate(date, updated));
 	const links = $derived(
 		[
 			link && { href: link, label: 'Website', icon: Globe },
+			docs_url && { href: docs_url, label: 'Docs', icon: Docs },
 			npm_url && { href: npm_url, label: 'npm', icon: Npm },
+			crates_url && { href: crates_url, label: 'crates.io', icon: Crate },
 			source_url && { href: source_url, label: 'GitHub', icon: Github }
 		].filter((l) => !!l)
 	);

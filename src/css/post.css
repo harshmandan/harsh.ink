@@ -406,6 +406,31 @@
 	border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* Desktop screenshots: the full width of the post, so small UI text stays readable. */
+.post-content img.screenshot.wide {
+	max-width: none;
+	border-radius: calc(var(--spacing-scale) * 8);
+}
+
+/* A screenshot with a caption under it. */
+.post-content figure {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.post-content figure img {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.post-content figcaption {
+	margin-top: calc(var(--spacing-scale) * 10);
+	font-size: calc(var(--spacing-scale) * 14);
+	line-height: 1.5;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.6);
+}
+
 /* Two phone screenshots side by side, shrinking together on narrow screens. */
 .post-content .screenshot-pair {
 	display: grid;

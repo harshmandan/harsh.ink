@@ -10,5 +10,7 @@ export type Frontmatter = {
 	draft?: boolean;
 	link?: string;
 	npm_url?: string;
+	crates_url?: string;
+	docs_url?: string;
 	source_url?: string;
 };
