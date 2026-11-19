@@ -423,6 +423,36 @@
 	margin-bottom: 0;
 }
 
+/* Photos in two columns, each with its caption. `wide` spans both, `solo` sits centred. */
+.post-content .photo-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: calc(var(--spacing-scale) * 16);
+	align-items: start;
+}
+
+.post-content .photo-grid figure {
+	margin: 0;
+}
+
+.post-content .photo-grid figure.wide {
+	grid-column: 1 / -1;
+}
+
+.post-content .photo-grid figure.solo {
+	grid-column: 1 / -1;
+	width: calc(50% - var(--spacing-scale) * 8);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.post-content .photo-grid img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: calc(var(--spacing-scale) * 8);
+}
+
 .post-content figcaption {
 	margin-top: calc(var(--spacing-scale) * 10);
 	font-size: calc(var(--spacing-scale) * 14);
