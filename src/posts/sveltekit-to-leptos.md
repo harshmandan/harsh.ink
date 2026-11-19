@@ -1,7 +1,7 @@
 ---
 title: 'How to port a SvelteKit website to Leptos'
 date: '18-11-2024'
-updated: '17-11-2026'
+updated: '18-11-2024'
 categories:
   - 'rust'
   - 'sveltekit'

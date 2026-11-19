@@ -1,7 +1,7 @@
 ---
 title: 'Reverse-engineering the Cardi Tech BLE protocol'
 date: '14-05-2026'
-updated: '17-11-2026'
+updated: '14-05-2026'
 categories:
   - 'reverse-engineering'
 excerpt: The official app for my car's ambient lighting kit doesn't connect, so I reverse-engineered its Bluetooth protocol and built my own. Then I spent three more days on bugs that only showed up after I thought I was done.

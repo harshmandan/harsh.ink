@@ -1,7 +1,7 @@
 ---
 title: 'Linear scale in Tailwind CSS'
 date: '15-12-2024'
-updated: '17-11-2026'
+updated: '15-12-2024'
 categories:
   - 'css'
 excerpt: A Tailwind config where the number in a class is the pixel value, so p-18 means 18px and the output is still rem.

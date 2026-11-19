@@ -1,7 +1,7 @@
 ---
 title: 'svelte-overflow-fade: a smooth scroll fade with CSS masks'
 date: '15-08-2025'
-updated: '17-11-2026'
+updated: '15-08-2025'
 categories:
   - 'svelte'
   - 'css'

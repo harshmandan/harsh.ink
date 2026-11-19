@@ -1,7 +1,7 @@
 ---
 title: 'A Capacitor plugin for YouTube streams, built on NewPipe'
 date: '03-07-2025'
-updated: '17-11-2026'
+updated: '03-07-2025'
 categories:
   - 'capacitor'
   - 'open-source'

@@ -1,7 +1,7 @@
 ---
 title: 'The best way to manage state in Svelte'
 date: '20-07-2023'
-updated: '17-11-2026'
+updated: '20-07-2023'
 categories:
   - 'svelte'
 excerpt: Sharing state in Svelte and SvelteKit with stores inside context, wrapped in typed getter and setter functions.
