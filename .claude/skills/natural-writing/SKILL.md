@@ -63,7 +63,8 @@ Posts on this site had wrong option names, wrong timings, missing exports, packa
 - Check install instructions actually work (does the npm package exist?).
 - Remove placeholder images (placehold.co and similar). If there's a live demo, embed it as an iframe with `class="demo-frame"`, adding `wide` for demos built for desktop. Put the demo at the very top of the post, before any update section, so readers can try it first.
 - If an update section contradicts the original post, fix or mark the original. Don't leave both standing.
-- Watch the date: a post dated 2024 that mentions a 2025 release needs `updated` bumped or a dated note.
+- Watch the date: a post dated 2024 that mentions a 2025 release needs a dated note.
+- Never bump `updated` for proofreading, rewording or a fix pass. The blog shows "Updated" whenever `updated` differs from `date`, so only change it when the user adds new content.
 
 ## Punctuation and rhythm
 
