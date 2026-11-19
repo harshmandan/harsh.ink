@@ -3,72 +3,74 @@
 	import Seo from '#lib/components/Seo.svelte';
 
 	const photos = [
-		'https://live.staticflickr.com/65535/54562196474_66b38d4e29_k.jpg',
-		'https://live.staticflickr.com/65535/54561135182_20ce80f799_k.jpg',
-		'https://live.staticflickr.com/65535/54562342260_3798e50e56_k.jpg',
-		'https://live.staticflickr.com/65535/54562253098_ffda72d85c_k.jpg',
-		'https://live.staticflickr.com/65535/54562253138_15c12db54e_k.jpg',
-		'https://live.staticflickr.com/65535/54562196354_3f9341b5c3_k.jpg',
-		'https://live.staticflickr.com/65535/54561136027_d177a848b8_k.jpg',
-		'https://live.staticflickr.com/65535/54561136012_3bd88add21_k.jpg',
-		'https://live.staticflickr.com/65535/54561135317_42573740fb_k.jpg',
-		'https://live.staticflickr.com/65535/54562012156_cf74ef643f_k.jpg',
-		'https://live.staticflickr.com/65535/54562011346_32c3f87e83_k.jpg',
-		'https://live.staticflickr.com/65535/54562011991_4762a5d765_k.jpg',
-		'https://live.staticflickr.com/65535/54562196154_cc42b51f36_k.jpg',
-		'https://live.staticflickr.com/65535/54562252863_eb934feef7_k.jpg',
-		'https://live.staticflickr.com/65535/54562252848_88e675012e_k.jpg',
-		'https://live.staticflickr.com/65535/54562253028_ab79d29174_k.jpg',
-		'https://live.staticflickr.com/65535/54561135767_c470eb4e07_k.jpg',
-		'https://live.staticflickr.com/65535/54562011841_f0b78a17d6_k.jpg',
-		'https://live.staticflickr.com/65535/54562011861_573a371773_k.jpg',
-		'https://live.staticflickr.com/65535/54562341910_b17d3753db_k.jpg',
-		'https://live.staticflickr.com/65535/54562341960_a4dc4fe719_k.jpg',
-		'https://live.staticflickr.com/65535/54562011766_d5c3275c89_k.jpg',
-		'https://live.staticflickr.com/65535/54562195929_1d95427053_k.jpg',
-		'https://live.staticflickr.com/65535/54562341875_21b73c38a2_k.jpg',
-		'https://live.staticflickr.com/65535/54562196194_a03472c306_k.jpg',
-		'https://live.staticflickr.com/65535/54562011711_515aa78812_k.jpg',
-		'https://live.staticflickr.com/65535/54562252628_8bdec53bc0_k.jpg',
-		'https://live.staticflickr.com/65535/54562341850_3f0f21b5d8_k.jpg',
-		'https://live.staticflickr.com/65535/54562011271_0b1e9058c8_k.jpg',
-		'https://live.staticflickr.com/65535/54562195854_678aa984d8_k.jpg',
-		'https://live.staticflickr.com/65535/54562341800_6995a4efc1_k.jpg',
-		'https://live.staticflickr.com/65535/54561135572_f6844253ae_k.jpg',
-		'https://live.staticflickr.com/65535/54562196259_d374079c16_k.jpg',
-		'https://live.staticflickr.com/65535/54562252173_0e31143e90_k.jpg',
-		'https://live.staticflickr.com/65535/54562195804_fdd0b0220f_k.jpg',
-		'https://live.staticflickr.com/65535/54562011621_4fc48968c9_k.jpg',
-		'https://live.staticflickr.com/65535/54561135547_b9f25ea2c1_k.jpg',
-		'https://live.staticflickr.com/65535/54562341715_cd567470e5_k.jpg',
-		'https://live.staticflickr.com/65535/54561135557_20d94bafd9_k.jpg',
-		'https://live.staticflickr.com/65535/54561135522_43e93b43a4_k.jpg',
-		'https://live.staticflickr.com/65535/54562195469_dc0e9a8297_k.jpg',
-		'https://live.staticflickr.com/65535/54561135492_c0a2d7e45f_k.jpg',
-		'https://live.staticflickr.com/65535/54562341670_ab75f982cb_k.jpg',
-		'https://live.staticflickr.com/65535/54562341650_0e55afd742_k.jpg',
-		'https://live.staticflickr.com/65535/54562195744_96732e8d8f_k.jpg',
-		'https://live.staticflickr.com/65535/54562195674_f7b91c688d_k.jpg',
-		'https://live.staticflickr.com/65535/54562341660_e1206a5cc2_k.jpg',
-		'https://live.staticflickr.com/65535/54562252178_0df8358c77_k.jpg',
-		'https://live.staticflickr.com/65535/54562195604_b87fc5d042_k.jpg',
-		'https://live.staticflickr.com/65535/54562252383_94e65c9ede_k.jpg',
-		'https://live.staticflickr.com/65535/54562252358_93e3d23cb8_k.jpg',
-		'https://live.staticflickr.com/65535/54562011456_6619820c3f_k.jpg',
-		'https://live.staticflickr.com/65535/54562195544_871152886b_k.jpg',
-		'https://live.staticflickr.com/65535/54562011191_f5f9219409_k.jpg',
-		'https://live.staticflickr.com/65535/54562012256_af5ad565a9_k.jpg',
-		'https://live.staticflickr.com/65535/54562253168_adbfd87779_k.jpg',
-		'https://live.staticflickr.com/65535/54562012231_2729951916_k.jpg',
-		'https://live.staticflickr.com/65535/54562252233_8f3a82f3d5_k.jpg',
-		'https://live.staticflickr.com/65535/54562011966_1326c1adcb_k.jpg',
-		'https://live.staticflickr.com/65535/54562011946_50fee489d9_k.jpg',
-		'https://live.staticflickr.com/65535/54562342025_9cec39b62e_k.jpg',
-		'https://live.staticflickr.com/65535/54562195399_2b4414871b_k.jpg',
-		'https://live.staticflickr.com/65535/54562341565_621bb9a658_k.jpg',
-		'https://live.staticflickr.com/65535/54562011376_e465d05a95_k.jpg',
-		'https://live.staticflickr.com/65535/54561135377_42a2d3c161_k.jpg',
-		'https://live.staticflickr.com/65535/54561135217_5c4f5de104_k.jpg'
+		{ file: 'DSC02166.avif', w: 5184, h: 3888 },
+		{ file: 'PXL_20210921_163354792.avif', w: 3280, h: 2464 },
+		{ file: 'P2170017.avif', w: 4608, h: 3456 },
+		{ file: 'P2170023.avif', w: 4608, h: 3456 },
+		{ file: 'P2180029.avif', w: 4608, h: 3456 },
+		{ file: 'P2180061.avif', w: 3456, h: 4608 },
+		{ file: 'P3020878.avif', w: 4608, h: 3456 },
+		{ file: 'P3041043.avif', w: 4608, h: 3456 },
+		{ file: 'P3051301.avif', w: 3456, h: 4608 },
+		{ file: 'P3051330.avif', w: 4608, h: 3456 },
+		{ file: 'P3041080.avif', w: 4608, h: 3456 },
+		{ file: 'P3191655.avif', w: 4608, h: 3456 },
+		{ file: 'P3191677.avif', w: 4608, h: 3456 },
+		{ file: 'P3191699.avif', w: 3456, h: 4608 },
+		{ file: 'P3191848.avif', w: 3456, h: 4608 },
+		{ file: 'P4041970.avif', w: 4608, h: 3456 },
+		{ file: 'P3041076.avif', w: 4608, h: 3456 },
+		{ file: 'P4051981.avif', w: 4608, h: 3456 },
+		{ file: 'P4052126.avif', w: 3456, h: 4608 },
+		{ file: 'P4052141.avif', w: 4608, h: 3456 },
+		{ file: 'P4052325.avif', w: 4160, h: 3120 },
+		{ file: 'P4062419.avif', w: 4608, h: 3456 },
+		{ file: 'P4062427.avif', w: 4608, h: 3456 },
+		{ file: 'P4062431.avif', w: 4608, h: 3456 },
+		{ file: 'P4062437.avif', w: 3456, h: 4608 },
+		{ file: 'P4062553.avif', w: 4608, h: 3456 },
+		{ file: 'P3051537.avif', w: 3456, h: 4608 },
+		{ file: 'P5132607.avif', w: 3456, h: 4608 },
+		{ file: 'P5132609.avif', w: 4608, h: 3456 },
+		{ file: 'P5142622.avif', w: 3456, h: 4608 },
+		{ file: 'P5142641.avif', w: 4518, h: 3388 },
+		{ file: 'P5150897.avif', w: 4608, h: 3456 },
+		{ file: 'P5150930.avif', w: 4608, h: 3456 },
+		{ file: 'P5161009.avif', w: 4142, h: 3107 },
+		{ file: 'P3051266.avif', w: 2621, h: 3495 },
+		{ file: 'P5181212.avif', w: 3456, h: 4608 },
+		{ file: 'P5201312.avif', w: 4608, h: 3456 },
+		{ file: 'P5201315.avif', w: 4608, h: 3456 },
+		{ file: 'P5231318.avif', w: 4608, h: 3456 },
+		{ file: 'P6021357.avif', w: 4476, h: 3356 },
+		{ file: 'P6261425.avif', w: 4608, h: 3456 },
+		{ file: 'P7181856.avif', w: 4608, h: 3456 },
+		{ file: 'P7181876.avif', w: 4608, h: 3456 },
+		{ file: 'P7181907.avif', w: 4608, h: 3456 },
+		{ file: 'P7181916.avif', w: 4320, h: 3240 },
+		{ file: 'P7181938.avif', w: 3456, h: 4608 },
+		{ file: 'P6261432.avif', w: 4608, h: 3456 },
+		{ file: 'P8161960.avif', w: 3456, h: 4608 },
+		{ file: 'P8161961.avif', w: 4608, h: 3456 },
+		{ file: 'P8161969.avif', w: 4608, h: 3456 },
+		{ file: 'P8162010.avif', w: 2752, h: 2063 },
+		{ file: 'P8252065.avif', w: 4608, h: 3456 },
+		{ file: 'PB262148.avif', w: 4608, h: 3456 },
+		{ file: 'PB262174.avif', w: 4608, h: 3456 },
+		{ file: 'PB262196.avif', w: 2952, h: 3936 },
+		{ file: 'PXL_20231222_021424334.MP.avif', w: 3072, h: 4080 },
+		{ file: 'P2102269.avif', w: 3626, h: 2719 },
+		{ file: 'P2102276.avif', w: 4473, h: 3354 },
+		{ file: 'P2102283.avif', w: 3728, h: 2795 },
+		{ file: 'P3051483.avif', w: 3243, h: 4325 },
+		{ file: 'P3232441.avif', w: 4608, h: 3456 },
+		{ file: 'P3232467.avif', w: 3456, h: 4608 },
+		{ file: 'P3242683.avif', w: 4608, h: 3456 },
+		{ file: 'PXL_20240909_104116548.ACTION_PAN-01.COVER.avif', w: 3072, h: 4080 },
+		{ file: 'PC143292.avif', w: 3847, h: 2885 },
+		{ file: 'PC143318.avif', w: 4608, h: 3456 },
+		{ file: 'PC143351.avif', w: 4608, h: 3456 },
+		{ file: 'PC143392.avif', w: 3456, h: 4608 }
 	];
 </script>
 
@@ -92,9 +94,19 @@
 	<div
 		class="relative right-1/2 left-1/2 -mx-[50vw] flex h-full w-screen flex-col gap-32 px-16 xl:gap-72"
 	>
-		{#each photos as photo (photo)}
-			<a href={photo} target="_blank" class="flex w-full snap-start items-center justify-center">
-				<img alt="Gallery" src={photo} class="max-h-[calc(100vh-100px)] w-full object-contain" />
+		{#each photos as photo (photo.file)}
+			{@const src = `https://bucket.harsh.ink/${photo.file}`}
+			<a href={src} target="_blank" class="flex w-full snap-start items-center justify-center">
+				<!-- width/height reserve space, so lazy loading only fetches photos near the screen -->
+				<img
+					alt="Gallery"
+					{src}
+					width={photo.w}
+					height={photo.h}
+					loading="lazy"
+					decoding="async"
+					class="h-auto max-h-[calc(100vh-100px)] w-full object-contain"
+				/>
 			</a>
 		{/each}
 	</div>
